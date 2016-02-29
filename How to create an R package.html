@@ -831,7 +831,8 @@ source(~/ksutil/function2.R)
 <h3>Step 1. Create a new project</h3>
 <div class="slideContent" >
 <ul>
-<li>In RStudio, go to File -&gt; New Project -&gt; New Directory -&gt; R Package</li>
+<li>In RStudio, go to <code>File</code> -&gt; <code>New Project</code> -&gt; <code>New Directory</code> -&gt; <code>R Package</code></li>
+<li>Go to <code>Build</code> -&gt; <code>More</code> -&gt; <code>Configure Build Tools</code> and check <code>Generate documentation with Roxygen</code></li>
 </ul>
 
 </div>
@@ -873,6 +874,8 @@ LazyData: TRUE
 <section data-transition="linear" data-transition-speed="default">
 <h3>Step 4. Write your R function and in-code documentation</h3>
 <div class="slideContent" >
+<p><small></p>
+
 <pre><code>#&#39; Copy object to clipboard.
 #&#39;
 #&#39; @description An empty function for comments by Thell from http://stackoverflow.com/questions/14547069/how-to-write-from-r-to-the-clipboard-on-a-mac.
@@ -889,6 +892,8 @@ copyclip &lt;- function(x, ...) {
   close(clip)
 }
 </code></pre>
+
+<p></small></p>
 
 </div>
 
@@ -918,6 +923,8 @@ to build and reload your package</li>
 <div class="slideContent" >
 <pre><code>library(myfirstpkg)
 ?copyclip
+copyclip(&quot;Hello world&quot;)
+copyclip(c(&quot;apple&quot;, &quot;orange&quot;, &quot;banana&quot;))
 </code></pre>
 
 </div>
