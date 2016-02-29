@@ -1,0 +1,122 @@
+Create an R package
+========================================================
+author: Kyaw Sint
+date: Feburary 29, 2016
+Yale Biostatistics Student Association
+
+Why create an R package?
+========================================================
+- You have many functions and want to organize them in a single package
+- Document your functions with a description, usage, arguments, return value, and examples
+- Search for help with `?function_name` or `help(function_name)`
+- Auto-completion in RStudio with a yellow tooltip with description of function and arguments
+- Easier to load your functions with `library(ksutil)` than
+```
+source(~/ksutil/function1.R)
+source(~/ksutil/function2.R)
+```
+...
+- Can choose which objects and functions are visible.
+- Share with others!
+
+Software needed
+========================================================
+- R (http://www.r-project.org/)
+- RStudio (https://www.rstudio.com/)
+- devtools: `install.packages("devtools")`
+- roxygen2: `install.packages("roxygen2")`
+- LaTeX for PDF documentation (optional)
+
+
+Step 1. Create a new project
+========================================================
+- In RStudio, go to `File` -> `New Project` -> `New Directory` -> `R Package`
+- Go to `Build` -> `More` -> `Configure Build Tools` and check `Generate documentation with Roxygen`
+
+
+Step 2. Review the directory structure
+========================================================
+- `man`: folder containing Rd documentation files.
+
+- `R`: folder containing the R code files.
+
+- `DESCRIPTION`: file with description of your package.
+
+- `NAMESPACE`: file with list of objects and functions to export to make visible when package is loaded.
+
+- Do not edit the Rd files in `man` or the `NAMESPACE` file.
+`roxygen2` will generate these files for you.
+
+Step 3. Edit the `DESCRIPTION` file
+========================================================
+```
+Package: myfirstpkg
+Type: Package
+Title: What the Package Does (Title Case)
+Version: 0.1
+Date: 2016-02-15
+Author: Who wrote it
+Maintainer: Who to complain to <yourfault@somewhere.net>
+Description: More about what it does (maybe more than one line)
+License: What license is it under?
+LazyData: TRUE
+```
+
+
+Step 4. Write your R function and in-code documentation
+========================================================
+<small>
+```
+#' Copy object to clipboard.
+#'
+#' @description An empty function for comments by Thell from http://stackoverflow.com/questions/14547069/how-to-write-from-r-to-the-clipboard-on-a-mac.
+#' @param x object to copy to clipboard.
+#' @param ... optional arguments to pass to write.table().
+#' @examples
+#' copyclip("Hello world")
+#' copyclip(c("apple", "orange", "banana"))
+#' @seealso \url{http://stackoverflow.com/questions/14547069/how-to-write-from-r-to-the-clipboard-on-a-mac}
+#' @export
+copyclip <- function(x, ...) {
+  clip <- pipe("pbcopy", "w")
+  write.table(x, file=clip, row.names = FALSE, ...)
+  close(clip)
+}
+```
+</small>
+
+
+Step 5. Build your package
+========================================================
+- Click `More` -> `Document` (`Ctrl-Shift-D` or `Cmd-Shift-D`)
+to generate your documentation
+- Click `Build & Reload` (`Ctrl-Shift-B` or `Cmd-Shift-B`)
+to build and reload your package
+
+
+Optional
+--------
+- Click `More` -> `Check Package` to check your package if there are possible conflicts
+- Click `More` -> `Build Source Package` to create `tar.gz` compressed file of your package to share with others
+
+
+Step 6. Use your package!
+========================================================
+```
+library(myfirstpkg)
+?copyclip
+copyclip("Hello world")
+copyclip(c("apple", "orange", "banana"))
+```
+
+
+Resources
+========================================================
+- Developing Packages with RStudio
+https://support.rstudio.com/hc/en-us/articles/200486488-Developing-Packages-with-RStudio
+
+- R Packages by Hadley Wickham (free online book)
+http://r-pkgs.had.co.nz/
+
+- Writing R Extensions
+https://cran.r-project.org/doc/manuals/r-release/R-exts.html
